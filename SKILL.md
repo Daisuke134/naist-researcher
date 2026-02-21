@@ -49,19 +49,28 @@ K-Dense が未インストールの場合（2ステップ）:
 
 ### Phase 1: 文献調査
 
-論文検索（research_lookup.py）:
+出力ディレクトリ作成:
 ```bash
 OUTDIR="writing_outputs/$(date +%Y%m%d_%H%M%S)_dc1"
 mkdir -p "$OUTDIR/sources" "$OUTDIR/drafts" "$OUTDIR/figures" "$OUTDIR/final"
-
-python3 ~/.claude/skills/claude-scientific-writer/skills/research-lookup/research_lookup.py "[研究テーマ] neural circuit mechanism" -o "$OUTDIR/sources/papers_$(date +%Y%m%d_%H%M%S)_main.md"
 ```
 
-Webサーチ（parallel_web.py）:
+論文検索（research_lookup.py — OPENROUTER_API_KEY に有料プランが必要）:
 ```bash
-python3 ~/.claude/skills/claude-scientific-writer/skills/parallel-web/scripts/parallel_web.py search "[研究テーマ] 先行研究 課題 未解決" -o "$OUTDIR/sources/search_$(date +%Y%m%d_%H%M%S)_background.md"
+python3 ~/.claude/skills/claude-scientific-writer/skills/research-lookup/research_lookup.py "[研究テーマ] neural circuit mechanism" -o "$OUTDIR/sources/papers_$(date +%Y%m%d_%H%M%S)_main.md" 2>&1
+# 402エラーが出た場合はスキップして Phase 1b へ
+```
 
-python3 ~/.claude/skills/claude-scientific-writer/skills/parallel-web/scripts/parallel_web.py research "[研究テーマ] gap analysis research gaps" -o "$OUTDIR/sources/research_$(date +%Y%m%d_%H%M%S)_gaps.md"
+**Phase 1b（フォールバック）: research_lookup.py が402エラーの場合**
+`mcp__exa__web_search_exa` で以下を検索してソースファイルに保存:
+1. `[研究テーマ] 先行研究 神経科学 日本語`
+2. `[研究テーマ] research gap未解決問題`
+3. `JSPS DC1 [研究テーマ] 採択 年報`
+
+Webサーチ（parallel_web.py — PARALLEL_API_KEY が必要）:
+```bash
+python3 ~/.claude/skills/claude-scientific-writer/skills/parallel-web/scripts/parallel_web.py search "[研究テーマ] 先行研究 課題 未解決" -o "$OUTDIR/sources/search_$(date +%Y%m%d_%H%M%S)_background.md" 2>&1
+# エラーの場合もスキップ可
 ```
 
 ### Phase 2: 初稿生成

@@ -23,6 +23,9 @@ APIキーの取得先:
 - ANTHROPIC_API_KEY: https://console.anthropic.com
 - OPENROUTER_API_KEY: https://openrouter.ai
 
+**注意:** OPENROUTER_API_KEY は論文検索強化に使用。無料プランでは Perplexity Sonar が使えないため
+研究検索は Claude 内蔵検索にフォールバックします（品質はやや低下）。有料プランにすると最高品質になります。
+
 ## 使い方
 
 ### Mode A: Cursor / Claude Code（ローカル実行）
