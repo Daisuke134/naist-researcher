@@ -21,16 +21,17 @@ allowed-tools: [Read, Write, Edit, Bash, Grep, Glob]
 # APIキー確認
 echo $ANTHROPIC_API_KEY | head -c 10
 echo $OPENROUTER_API_KEY | head -c 10
-echo $PARALLEL_API_KEY | head -c 10
 
 # K-Dense scientific-writer確認
 ls ~/.claude/skills/claude-scientific-writer/CLAUDE.md 2>/dev/null && echo "OK" || echo "NOT FOUND"
 ```
 
-K-Dense が未インストールの場合:
+K-Dense が未インストールの場合（2ステップ）:
 ```bash
-git clone https://github.com/K-Dense-AI/claude-scientific-writer ~/.claude/skills/claude-scientific-writer
-pip install -r ~/.claude/skills/claude-scientific-writer/requirements.txt
+/plugin marketplace add https://github.com/K-Dense-AI/claude-scientific-writer
+/plugin install claude-scientific-writer
+# 次に初期化
+/scientific-writer:init
 ```
 
 ## 入力形式

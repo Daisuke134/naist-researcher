@@ -6,22 +6,22 @@
 
 ```bash
 # Step 1: このリポジトリをインストール
-git clone https://github.com/cbns-naist/naist-researcher ~/.claude/skills/naist-researcher
+git clone https://github.com/Daisuke134/naist-researcher ~/.claude/skills/naist-researcher
 
-# Step 2: K-Dense scientific-writerをインストール（依存ライブラリ）
-git clone https://github.com/K-Dense-AI/claude-scientific-writer ~/.claude/skills/claude-scientific-writer
-pip install -r ~/.claude/skills/claude-scientific-writer/requirements.txt
+# Step 2: K-Dense scientific-writerをプラグインとしてインストール
+/plugin marketplace add https://github.com/K-Dense-AI/claude-scientific-writer
+/plugin install claude-scientific-writer
+# 次に初期化（一度だけ）
+/scientific-writer:init
 
 # Step 3: APIキーを設定（~/.zshrc に追加）
 export ANTHROPIC_API_KEY="sk-ant-..."     # 必須
 export OPENROUTER_API_KEY="sk-or-..."     # Perplexity論文検索に必要
-export PARALLEL_API_KEY="..."             # Webサーチに必要
 ```
 
 APIキーの取得先:
 - ANTHROPIC_API_KEY: https://console.anthropic.com
 - OPENROUTER_API_KEY: https://openrouter.ai
-- PARALLEL_API_KEY: K-Dense README参照
 
 ## 使い方
 
@@ -80,4 +80,4 @@ Claude Code を開いて以下をコピペ:
 ## 質問・バグ報告
 
 Slack: @ダイス
-GitHub Issues: https://github.com/cbns-naist/naist-researcher/issues
+GitHub Issues: https://github.com/Daisuke134/naist-researcher/issues
