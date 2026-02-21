@@ -5,20 +5,18 @@
 このスキルは K-Dense scientific-writer に依存している。
 
 ```bash
-# K-Denseが必要なコマンド（実行前に確認）
-ls ~/.claude/skills/claude-scientific-writer/CLAUDE.md
+# K-Denseが正しくインストールされているか確認
+ls ~/.claude/skills/claude-scientific-writer/skills/research-lookup/research_lookup.py
+ls ~/.claude/skills/claude-scientific-writer/skills/parallel-web/scripts/parallel_web.py
 ```
 
 ## 必須コマンドルール
 
 | タスク | 使うコマンド | 禁止 |
 |-------|------------|------|
-| 学術論文検索 | `python research_lookup.py "..." -o sources/papers_XXX.md` | WebSearch |
-| Webサーチ | `python scripts/parallel_web.py search "..." -o sources/search_XXX.md` | WebSearch |
-| 深掘りリサーチ | `python scripts/parallel_web.py research "..." -o sources/research_XXX.md` | WebSearch |
-| 概念図生成 | `python scripts/generate_schematic.py "..." -o figures/output.png` | 手動作成 |
-
-**全コマンドは `~/.claude/skills/claude-scientific-writer/` ディレクトリから実行する。**
+| 学術論文検索 | `python ~/.claude/skills/claude-scientific-writer/skills/research-lookup/research_lookup.py "..." -o sources/papers_XXX.md` | WebSearch |
+| Webサーチ | `python ~/.claude/skills/claude-scientific-writer/skills/parallel-web/scripts/parallel_web.py search "..." -o sources/search_XXX.md` | WebSearch |
+| 深掘りリサーチ | `python ~/.claude/skills/claude-scientific-writer/skills/parallel-web/scripts/parallel_web.py research "..." -o sources/research_XXX.md` | WebSearch |
 
 ## 出力ルール
 

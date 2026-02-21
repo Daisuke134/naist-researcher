@@ -49,22 +49,19 @@ K-Dense が未インストールの場合（2ステップ）:
 
 ### Phase 1: 文献調査
 
-K-Dense のワーキングディレクトリを設定:
-```bash
-export KDENSE_HOME=~/.claude/skills/claude-scientific-writer
-cd $KDENSE_HOME
-```
-
 論文検索（research_lookup.py）:
 ```bash
-python research_lookup.py "[研究テーマ] neural circuit mechanism" -o writing_outputs/[timestamp]_dc1/sources/papers_$(date +%Y%m%d_%H%M%S)_main.md
+OUTDIR="writing_outputs/$(date +%Y%m%d_%H%M%S)_dc1"
+mkdir -p "$OUTDIR/sources" "$OUTDIR/drafts" "$OUTDIR/figures" "$OUTDIR/final"
+
+python3 ~/.claude/skills/claude-scientific-writer/skills/research-lookup/research_lookup.py "[研究テーマ] neural circuit mechanism" -o "$OUTDIR/sources/papers_$(date +%Y%m%d_%H%M%S)_main.md"
 ```
 
 Webサーチ（parallel_web.py）:
 ```bash
-python scripts/parallel_web.py search "[研究テーマ] 先行研究 課題 未解決" -o writing_outputs/[timestamp]_dc1/sources/search_$(date +%Y%m%d_%H%M%S)_background.md
+python3 ~/.claude/skills/claude-scientific-writer/skills/parallel-web/scripts/parallel_web.py search "[研究テーマ] 先行研究 課題 未解決" -o "$OUTDIR/sources/search_$(date +%Y%m%d_%H%M%S)_background.md"
 
-python scripts/parallel_web.py research "[研究テーマ] gap analysis research gaps" --processor pro-fast -o writing_outputs/[timestamp]_dc1/sources/research_$(date +%Y%m%d_%H%M%S)_gaps.md
+python3 ~/.claude/skills/claude-scientific-writer/skills/parallel-web/scripts/parallel_web.py research "[研究テーマ] gap analysis research gaps" -o "$OUTDIR/sources/research_$(date +%Y%m%d_%H%M%S)_gaps.md"
 ```
 
 ### Phase 2: 初稿生成
@@ -77,8 +74,7 @@ python scripts/parallel_web.py research "[研究テーマ] gap analysis research
 
 概念図生成:
 ```bash
-cd $KDENSE_HOME
-python scripts/generate_schematic.py "研究フロー図: [研究テーマ]の概念と研究アプローチ" -o writing_outputs/[timestamp]_dc1/figures/research_flow.png
+python3 ~/.claude/skills/claude-scientific-writer/skills/scientific-schematics/scripts/generate_schematic.py "研究フロー図: [研究テーマ]の概念と研究アプローチ" -o "$OUTDIR/figures/research_flow.png"
 ```
 
 ### Phase 3: peer-review（Eval ループ）
